@@ -5,43 +5,32 @@ public class JumpGameII {
         if(nums.length == 1)
             return 0;
 
-        int[] jumpsRequired = new int[nums.length];
-        int distance = 1;
-        int lastIndex = nums.length-1;
-        int jumpLength;
-        int jump;
-        int bestJump;
-        int jumpTarget;
-        boolean bestJumpFound;
+        int currentIndex = 0;
+        int bestIndex;
+        int bestValue;
+        int currentValue;
+        int currentRange = nums[0];
+        int moveCount = 0;
+        int minIndex = 1;
 
-        for(int i=lastIndex-1; i>=0; i--){
-            jumpLength = nums[i];
-            if(jumpLength >= distance)
-                jumpsRequired[i] = 1;
-            else if(jumpLength > 0){
-                jump = 1;
-                bestJump = distance;
-                bestJumpFound = false;
-                while(!bestJumpFound && jump<= jumpLength) {
-                    jumpTarget = i + jump;
-                    if(jumpsRequired[jumpTarget] != 0) {
-                        if ((nums[jumpTarget] == jumpLength - jump) && bestJump >= jumpsRequired[jumpTarget]) {
-                            jumpsRequired[i] = jumpsRequired[jumpTarget];
-                            bestJumpFound = true;
-                        } else if (jumpLength - jump > nums[jumpTarget] && bestJump >= jumpsRequired[jumpTarget]){
-                            bestJump = jumpsRequired[jumpTarget]-1;
-                            jump += nums[jumpTarget]-1;
-                        } else if (bestJump > jumpsRequired[jumpTarget]) {
-                            bestJump = jumpsRequired[jumpTarget];
-                        }
+        while(currentRange+currentIndex < nums.length-1 ){
+            bestIndex = 0;
+            bestValue = 0;
+            for(int i=minIndex; i<=currentIndex+currentRange; i++){
+                if(nums[i] != 0){
+                    currentValue = i + nums[i];
+                    if(currentValue > bestValue){
+                        bestValue = currentValue;
+                        bestIndex = i;
                     }
-                    jump++;
                 }
-                if(!bestJumpFound)
-                    jumpsRequired[i] = bestJump+1;
             }
-            distance++;
+            minIndex = currentIndex + currentRange + 1;
+            currentIndex = bestIndex;
+            currentRange = nums[bestIndex];
+            moveCount++;
         }
-        return jumpsRequired[0];
+
+        return moveCount+1;
     }
 }
