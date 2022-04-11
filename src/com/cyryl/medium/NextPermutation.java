@@ -10,31 +10,23 @@ public class NextPermutation {
 
         while (!swapped && i>0){
             if(nums[i] > nums[i-1]){
-                if(i-1==0){
-                    index = findIndexOfNumberBetween(nums, nums[i], nums[i-1]);
-                    if(index < 0)
-                        swap(nums, 0, i);
-                    else {
-                        swap(nums, 0, index);
-                    }
-                    reverse(nums, i, nums.length-1);
-                    changedOrder = true;
-                    i--;
-                }else {
-                    swap(nums, i, i - 1);
-                    swapped = true;
+                index = findIndexOfNumberBetween(nums, i+1, nums[i], nums[i-1]);
+                if(index < 0) {
+                    if (i - 1 == 0)
+                        swap(nums, 0 , i);
+                    else
+                        swap(nums, i - 1, i);
                 }
+                else {
+                    swap(nums, i-1, index);
+                }
+                reverse(nums, i, nums.length-1);
+                swapped = true;
             }else
                 i--;
         }
-        if(swapped) {
-            while (i < nums.length - 1 && nums[i] < nums[i + 1]) {
-                swap(nums, i, i + 1);
-                i++;
-            }
-        }else if(!changedOrder){
-            reverse(nums, i, nums.length-1);
-        }
+        if(!swapped)
+            reverse(nums,0, nums.length-1);
     }
 
     public static void swap(int[] nums, int indexA, int indexB){
@@ -52,11 +44,11 @@ public class NextPermutation {
         }
     }
 
-    public static int findIndexOfNumberBetween(int[] nums, int a, int b){
+    public static int findIndexOfNumberBetween(int[] nums, int startingIndex, int a, int b){
         int number = a;
         int index = -1;
-        for(int i=2; i<nums.length; i++){
-            if(nums[i] < number && nums[i] > b) {
+        for(int i=startingIndex; i<nums.length; i++){
+            if(nums[i] <= number && nums[i] > b) {
                 index = i;
                 number = nums[i];
             }

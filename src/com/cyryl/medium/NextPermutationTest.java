@@ -30,17 +30,31 @@ public class NextPermutationTest {
     }
 
     @Test
-    public void moreSwappingNextPerm(){
+    public void itIsNextPerm(){
         int[] input = {1, 2, 7, 6, 5, 4};
         NextPermutation.nextPermutation(input);
-        Assert.assertArrayEquals(new int[]{1, 7, 6, 5, 4, 2}, input);
+        Assert.assertArrayEquals(new int[]{1, 4, 2, 5, 6, 7}, input);
+    }
+
+    @Test
+    public void moreSwappingNextPerm(){
+        int[] input = {1, 2, 7, 6, 5, 4, 1};
+        NextPermutation.nextPermutation(input);
+        Assert.assertArrayEquals(new int[]{1, 4, 1, 2, 5, 6, 7}, input);
+    }
+
+    @Test
+    public void middleSwapPerm(){
+        int[] input = {5, 4, 7, 5, 3, 2};
+        NextPermutation.nextPermutation(input);
+        Assert.assertArrayEquals(new int[]{5, 5, 2, 3, 4, 7}, input);
     }
 
     @Test
     public void someSwappingNextPerm(){
         int[] input = {1, 2, 7, 6, 5, 4, 1};
         NextPermutation.nextPermutation(input);
-        Assert.assertArrayEquals(new int[]{1, 7, 6, 5, 4, 2, 1}, input);
+        Assert.assertArrayEquals(new int[]{1, 4, 1, 2, 5, 6, 7}, input);
     }
 
     @Test
@@ -64,5 +78,26 @@ public class NextPermutationTest {
         int[] input = {2, 3, 1};
         NextPermutation.nextPermutation(input);
         Assert.assertArrayEquals(new int[]{3, 1, 2}, input);
+    }
+
+    @Test
+    public void noHigherElementsBehind(){
+        int[] input = {4, 2, 0, 2, 3, 2, 0};
+        NextPermutation.nextPermutation(input);
+        Assert.assertArrayEquals(new int[]{4, 2, 0, 3, 0, 2, 2}, input);
+    }
+
+    @Test
+    public void noLowerElementsBehind(){
+        int[] input = {4, 2, 0, 2, 6, 5, 4};
+        NextPermutation.nextPermutation(input);
+        Assert.assertArrayEquals(new int[]{4, 2, 0, 4, 2, 5, 6}, input);
+    }
+
+    @Test
+    public void fuckMe(){
+        int[] input = {2, 3, 1, 3, 3};
+        NextPermutation.nextPermutation(input);
+        Assert.assertArrayEquals(new int[]{2, 3, 3, 1, 3}, input);
     }
 }
