@@ -1,5 +1,6 @@
 package com.cyryl.medium;
 
+
 public class BetterTrie {
 
     BetterTrieNode root;
