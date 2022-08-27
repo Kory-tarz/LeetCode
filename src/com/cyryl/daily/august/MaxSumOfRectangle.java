@@ -6,6 +6,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
+/**
+ * https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/
+ * correct solution but TLE
+ */
+
+
 public class MaxSumOfRectangle {
     public int maxSumSubmatrix(int[][] matrix, int k) {
         Map<Rectangle, Integer> memo = new HashMap<>();
@@ -34,41 +40,40 @@ public class MaxSumOfRectangle {
     }
 
     private int solve(Map<Rectangle, Integer> memo, int[][] preSumCol, int[][] preSumRow, Rectangle rectangle, int currSum, int k) {
-        if(memo.containsKey(rectangle)){
+        if (memo.containsKey(rectangle)) {
             return memo.get(rectangle);
         }
-        if(!rectangle.isValid()){
+        if (!rectangle.isValid()) {
             return Integer.MIN_VALUE;
         }
-        System.out.println("Rectangle: " + rectangle + " and sum = " + currSum);
 
         int bestSum = currSum <= k ? currSum : Integer.MIN_VALUE;
         int removedSum;
         int newSum;
         Rectangle newRectangle;
         // remove top row
-        removedSum = preSumRow[rectangle.topX][rectangle.bottomY] - preSumRow[rectangle.topX][rectangle.topY];
+        removedSum = preSumRow[rectangle.topX][rectangle.bottomY] - calcSum(preSumRow, rectangle.topX, rectangle.topY - 1);
         newRectangle = rectangle.getCopy();
         newRectangle.topX++;
         newSum = currSum - removedSum;
         bestSum = Math.max(bestSum, solve(memo, preSumCol, preSumRow, newRectangle, newSum, k));
 
         // remove left column
-        removedSum = preSumCol[rectangle.bottomX][rectangle.topY] - preSumCol[rectangle.topX][rectangle.topY];
+        removedSum = preSumCol[rectangle.bottomX][rectangle.topY] - calcSum(preSumCol, rectangle.topX - 1, rectangle.topY);
         newRectangle = rectangle.getCopy();
         newRectangle.topY++;
         newSum = currSum - removedSum;
         bestSum = Math.max(bestSum, solve(memo, preSumCol, preSumRow, newRectangle, newSum, k));
 
         // remove bottom row
-        removedSum = preSumRow[rectangle.bottomX][rectangle.bottomY] - preSumRow[rectangle.bottomX][rectangle.topY];
+        removedSum = preSumRow[rectangle.bottomX][rectangle.bottomY] - calcSum(preSumRow, rectangle.bottomX, rectangle.topY - 1);
         newRectangle = rectangle.getCopy();
         newRectangle.bottomX--;
         newSum = currSum - removedSum;
         bestSum = Math.max(bestSum, solve(memo, preSumCol, preSumRow, newRectangle, newSum, k));
 
         // remove right column
-        removedSum = preSumCol[rectangle.bottomX][rectangle.bottomY] - preSumCol[rectangle.topX][rectangle.bottomY];
+        removedSum = preSumCol[rectangle.bottomX][rectangle.bottomY] - calcSum(preSumCol, rectangle.topX - 1, rectangle.bottomY);
         newRectangle = rectangle.getCopy();
         newRectangle.bottomY--;
         newSum = currSum - removedSum;
@@ -78,8 +83,8 @@ public class MaxSumOfRectangle {
         return bestSum;
     }
 
-    private int calcSum(int[][] preSum, int x, int y){
-        if(x < 0 || y < 0){
+    private int calcSum(int[][] preSum, int x, int y) {
+        if (x < 0 || y < 0) {
             return 0;
         } else {
             return preSum[x][y];
@@ -100,12 +105,12 @@ public class MaxSumOfRectangle {
             this.bottomY = bottomY;
         }
 
-        public Rectangle getCopy(){
+        public Rectangle getCopy() {
             return new Rectangle(topX, topY, bottomX, bottomY);
         }
 
-        public boolean isValid(){
-            return topX < bottomX && topY < bottomY;
+        public boolean isValid() {
+            return topX <= bottomX && topY <= bottomY;
         }
 
         @Override
@@ -118,9 +123,9 @@ public class MaxSumOfRectangle {
             if (obj instanceof Rectangle other) {
                 return
                         this.bottomX == other.bottomX &&
-                        this.bottomY == other.bottomY &&
-                        this.topX == other.topX &&
-                        this.topY == other.topY;
+                                this.bottomY == other.bottomY &&
+                                this.topX == other.topX &&
+                                this.topY == other.topY;
             } else {
                 return super.equals(obj);
             }
