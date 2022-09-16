@@ -1,4 +1,4 @@
-package com.cyryl.daily;
+package com.cyryl.daily.previous;
 
 public class FirstAndLastPos {
     public int[] searchRange(int[] nums, int target) {

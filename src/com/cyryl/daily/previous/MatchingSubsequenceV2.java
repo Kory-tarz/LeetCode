@@ -1,4 +1,4 @@
-package com.cyryl.daily;
+package com.cyryl.daily.previous;
 
 public class MatchingSubsequenceV2 {
 

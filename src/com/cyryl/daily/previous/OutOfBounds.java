@@ -1,4 +1,4 @@
-package com.cyryl.daily;
+package com.cyryl.daily.previous;
 
 /**
  * There is an m x n grid with a ball. The ball is initially at the position [startRow, startColumn].

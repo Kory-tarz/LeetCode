@@ -1,4 +1,4 @@
-package com.cyryl.daily;
+package com.cyryl.daily.previous;
 
 public class UniquePaths {
     public int uniquePaths(int m, int n) {

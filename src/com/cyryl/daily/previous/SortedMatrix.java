@@ -1,4 +1,4 @@
-package com.cyryl.daily;
+package com.cyryl.daily.previous;
 
 /**
  * Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix.
