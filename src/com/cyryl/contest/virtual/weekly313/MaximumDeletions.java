@@ -1,4 +1,4 @@
-package com.cyryl.contest.virtual.weekl313;
+package com.cyryl.contest.virtual.weekly313;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.cyryl.contest.virtual.weekl313;
+package com.cyryl.contest.virtual.weekly313;
 
 public class HourglassSum {
     public int maxSum(int[][] grid) {

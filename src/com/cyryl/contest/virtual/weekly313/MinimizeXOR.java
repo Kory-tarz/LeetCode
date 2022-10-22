@@ -1,4 +1,4 @@
-package com.cyryl.contest.virtual.weekl313;
+package com.cyryl.contest.virtual.weekly313;
 
 public class MinimizeXOR {
     public int minimizeXor(int xorValue, int bitsValue) {
