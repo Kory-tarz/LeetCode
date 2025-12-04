@@ -3,7 +3,6 @@ package com.cyryl.hard;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class BitFlipsTest {
 

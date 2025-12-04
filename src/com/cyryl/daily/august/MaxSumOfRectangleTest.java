@@ -2,7 +2,7 @@ package com.cyryl.daily.august;
 
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class MaxSumOfRectangleTest {
 
